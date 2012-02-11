@@ -363,9 +363,11 @@ public class CustomerForm extends javax.swing.JFrame {
         Customer cust = loadCustomer();
         CustomerDBHelper helper = new CustomerDBHelper();
         helper.saveCustomer(cust);
-        
-        
-        
+
+        setVisible(false);
+        dispose();
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed

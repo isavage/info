@@ -5,12 +5,14 @@
 package infogym;
 
 import DBHelper.CustomerDBHelper;
+import DBHelper.LoginDBHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.Popup;
 import javax.swing.table.DefaultTableModel;
 import model.Customer;
+import model.Login;
 
 /**
  *
@@ -22,24 +24,30 @@ public class MainPage extends javax.swing.JFrame {
      * Creates new form MainPage
      */
     public MainPage() {
+
         initComponents();
-        String data[][] = {{"Vinod", "100"}, {"Raju", "200"}, {"Ranju", "300"}};
+//        jPanel1.setVisible(false);
+//        jPanel2.setVisible(true);
+//        jLabel5.setVisible(false);
+        loadTable();
 
-        ArrayList<Customer> customerList = new ArrayList<Customer>();
-        String col[] = {"Name", "code"};
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-
-
-        CustomerDBHelper helper = new CustomerDBHelper();
-
-        customerList = helper.getCustomers("All", "");
-
-        for (Customer c : customerList) {
-            Date dob = new Date(c.getDob().getTime());
-            Date doj = new Date(c.getDoj().getTime());
-            model.insertRow(0, new Object[]{c.getId(), c.getFirst_name(), c.getLast_name(), c.getAddress(), c.getTel(), c.getMobile(), dob, doj});
-        }
+//        String data[][] = {{"Vinod", "100"}, {"Raju", "200"}, {"Ranju", "300"}};
+//
+//        ArrayList<Customer> customerList = new ArrayList<Customer>();
+//        String col[] = {"Name", "code"};
+//        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//
+//
+//
+//        CustomerDBHelper helper = new CustomerDBHelper();
+//
+//        customerList = helper.getCustomers("All", "");
+//
+//        for (Customer c : customerList) {
+//            Date dob = new Date(c.getDob().getTime());
+//            Date doj = new Date(c.getDoj().getTime());
+//            model.insertRow(0, new Object[]{c.getId(), c.getFirst_name(), c.getLast_name(), c.getAddress(), c.getTel(), c.getMobile(), dob, doj});
+//        }
 
 
     }
@@ -64,6 +72,7 @@ public class MainPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -92,7 +101,7 @@ public class MainPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Address", "tel number", "mobile number", "date of birth", "date of joining"
+                "ID", "First Name", "Last Name", "Address", "Landline ", "Mobile", "Date of Birth", "Date of Joining"
             }
         ) {
             Class[] types = new Class [] {
@@ -144,38 +153,49 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("search");
+        jLabel2.setText("Search");
+
+        jButton1.setText("Refresh List");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(362, 362, 362)
+                        .addComponent(jButton1)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Customers", jPanel1);
@@ -201,11 +221,15 @@ public class MainPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -284,6 +308,15 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formPropertyChange
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        // TODO add your handling code here:
+         //     String[] refreshTemp=new String[2];
+      // this.main(refreshTemp);
+      // this.dispose();
+        loadTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -325,7 +358,50 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
     }
+    public void loadTable()
+    {
+        String data[][] = {{"Vinod", "100"}, {"Raju", "200"}, {"Ranju", "300"}};
+
+        ArrayList<Customer> customerList = new ArrayList<Customer>();
+        String col[] = {"Name", "code"};
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+
+        model.setNumRows(0);
+
+        CustomerDBHelper helper = new CustomerDBHelper();
+
+        customerList = helper.getCustomers("All", "");
+
+        for (Customer c : customerList) {
+            Date dob = new Date(c.getDob().getTime());
+            Date doj = new Date(c.getDoj().getTime());
+            model.insertRow(0, new Object[]{c.getId(), c.getFirst_name(), c.getLast_name(), c.getAddress(), c.getTel(), c.getMobile(), dob, doj});
+        }
+    }
+
+//    public void createLoginObject()
+//    {
+//        Login login=new Login();
+//        login.setUsername(jTextField2.getText());
+//        login.setPassword(jPasswordField1.getText());
+//
+//        LoginDBHelper ldh=new LoginDBHelper();
+//        boolean valid=ldh.validateLogin(login);
+//
+//        if (valid=true)
+//                 {
+//            jPanel1.setVisible(true);
+//        }
+// else
+//        {
+//            jLabel5.setVisible(true);
+//            jTextField2.setText("");
+//            jPasswordField1.setText("");
+// }
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
