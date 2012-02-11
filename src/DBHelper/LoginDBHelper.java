@@ -4,22 +4,19 @@
  */
 package DBHelper;
 
-import Utilities.Constants;
+
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Customer;
 import model.Login;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 
 /**
  *
  * @author Administrator
  */
-public class LoginDBHelper {
+public final class LoginDBHelper {
 
     Connection con = null;
     Statement statement;
@@ -58,6 +55,14 @@ public class LoginDBHelper {
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDBHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+            try {
+                statement.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginDBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
     }
 
@@ -79,6 +84,14 @@ System.out.println(query);
          
          catch (SQLException ex) {
                          Logger.getLogger(CustomerDBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         finally{
+            try {
+                statement.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginDBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     return false;
     }
@@ -104,7 +117,14 @@ System.out.println(query);
             catch (SQLException ex1) {
             Logger.getLogger(CustomerDBHelper.class.getName()).log(Level.SEVERE, null, ex1);
             }
-
+          finally{
+            try {
+                statement.close();
+                con.close();
+            } catch (SQLException ex2) {
+                Logger.getLogger(LoginDBHelper.class.getName()).log(Level.SEVERE, null, ex2);
+            }
+        }
         }
 
 
